@@ -1,0 +1,66 @@
+.loginPage {
+    background-color: #425375;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Vertically center the child elements */
+    align-items: center; /* Horizontally center the child elements */  
+    height: 100vh;
+}
+
+.loginHeader {
+    background-color: #7D92AB;
+    color: white;
+    align-self: start;
+    text-align: start;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-item {
+    list-style: none;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.navbar-item a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+.navbar-item a:hover {
+color: #E76F51;
+}  
+  
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    background-color: #7D92AB;
+    width: 25%;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.loginBox > button {
+    margin: 10px;
+    background-color: white;
+    color:#425375;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px;
+    border-color: transparent;
+}
+
+.loginBox > img {
+    margin: 20px;
+}

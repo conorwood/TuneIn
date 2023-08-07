@@ -1,0 +1,14 @@
+.reviewsPage {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: flex-start;
+}
+
+.reviewsWrapper {
+    margin: 10px;
+}
+
+li {
+    margin-bottom: 40px;
+}
