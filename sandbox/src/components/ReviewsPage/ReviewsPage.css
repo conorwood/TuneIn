@@ -6,9 +6,55 @@
 }
 
 .reviewsWrapper {
-    margin: 10px;
+    width: 100%;
+    margin-left: 0px;
+    position: relative;
 }
 
-li {
+a {
+    text-decoration: none;
+}
+
+.reviewsWrapper > ul li {
     margin-bottom: 40px;
+    display: flex;
+    column-gap: 30px;
+    background-color: #7D92AB;
+    width: 100%;
+    padding: 10px;
+    position: relative;
+    transition: 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+}
+
+.reviewPreview {
+    color: white;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.reviewPreview h2,
+.reviewPreview p {
+    text-decoration: none !important;
+    color: white;
+}
+
+.reviewPreview::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: -1; /* Place the overlay behind the content */
+}
+
+/* Apply the overlay effect on hover */
+.reviewsWrapper > ul li:hover .reviewPreview::before {
+    opacity: 1;
 }

@@ -5,11 +5,12 @@ import './SearchBox.css'
 import { Link } from 'react-router-dom'
 import { Location } from 'react-router-dom'
 
-function AlbumPreview({image, name}) {
+function AlbumPreview({image, name, artist}) {
     return (
         <div className='albumPreviews'>
             <img alt='albumCoverPreview' src={image}></img>
             <p>{name}</p>
+            <p id='artist'>{artist}</p>
         </div>
     )
 }
@@ -21,7 +22,7 @@ function SearchResults({data}) {
                 {data.map((data, idx) => (
                     <li key={data.id}>
                         <Link to={`/album/${data.id}`} className='link'>
-                         <AlbumPreview image={data.coverArtUrl} name={data.name}/>
+                         <AlbumPreview image={data.coverArtUrl} name={data.name} artist={data.artist}/>
                         </Link>
                     </li>
                 ))}

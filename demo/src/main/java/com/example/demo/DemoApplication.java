@@ -212,7 +212,8 @@ public class DemoApplication {
 
 			for (var v: albumSimplifiedPaging.getItems())
 			{
-				response.add(new AlbumInfo(v.getImages()[0].getUrl(), v.getName(), v.getId()));
+				System.out.println(v.getArtists()[0].getName());
+				response.add(new AlbumInfo(v.getImages()[0].getUrl(), v.getArtists()[0].getName(),v.getName(), v.getId()));
 			}
 			return response;
 		}

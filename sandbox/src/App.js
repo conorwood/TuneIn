@@ -3,8 +3,8 @@ import './App.css';
 import LoginPage from './components/LoginPage/LoginPage';
 import AlbumPage from './components/AlbumPage/AlbumPage'; 
 import SearchPage from './components/SearchPage/SearchPage';
-import AlbumPlaceHolder from './components/AlbumPage/AlbumPlaceHolder';
-import {Route, Routes, Link} from 'react-router-dom';
+//import AlbumPlaceHolder from './components/AlbumPage/AlbumPlaceHolder';
+import {Route, Routes} from 'react-router-dom';
 import ReviewsPage from './components/ReviewsPage/ReviewsPage';
 
 function App() {

@@ -21,10 +21,11 @@ public class AlbumInfo {
         this.id = Id;
     }
 
-    public AlbumInfo (String coverArtUrl, String name, String id) {
+    public AlbumInfo (String coverArtUrl, String artist, String name, String id) {
         this.coverArtUrl = coverArtUrl;
         this.name = name;
         this.id = id;
+        this.artist = artist;
     }
 
 

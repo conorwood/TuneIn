@@ -16,6 +16,7 @@ function AlbumInfo() {
     const [artistName, setArtistName] = useState('');
     const [review, setReview] = useState('');
     const [albumId, setAlbumId] = useState('');
+    const [favTracks, setFavTracks] = useState([]);
 
 
     useEffect(() => {
@@ -76,6 +77,15 @@ function AlbumInfo() {
             })
     };
 
+    const handleTrackClick = (track) => {
+        if (favTracks.includes(track)) {
+            return;
+        }
+
+        setFavTracks([...favTracks, track]);
+        console.log(favTracks);
+    }
+
 
     return (
         <div className="albumWrapper" >
@@ -89,7 +99,7 @@ function AlbumInfo() {
                     <h2 id="tracks">Tracks:</h2>
                     <ol id="track-list">
                         {tracks.map((track, idx) => (
-                            <li key={idx}>{track}</li>
+                            <li key={idx} onClick={() => handleTrackClick(track)}>{track}</li>
                         ))}
                     </ol>
                 </div>
@@ -99,6 +109,7 @@ function AlbumInfo() {
                     review={review}
                     onReviewChange={handleReviewChange}
                     onSaveReview={handleSaveReview}
+                    favTracks={favTracks}
             />
         </div>
     )

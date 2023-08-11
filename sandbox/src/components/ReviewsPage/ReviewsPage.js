@@ -2,6 +2,17 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { LoginHeader } from "../LoginPage/LoginHeader";
 import './ReviewsPage.css'
+import { Link } from 'react-router-dom';
+
+function ReviewPreview({albumName, albumId, reviewText}) {
+    return (
+        <div className="reviewPreview">
+            <h2>{albumName}</h2>
+            <p>{albumId}</p>
+            <p>{reviewText}</p>
+        </div>
+    )
+}
 
 export default function ReviewsPage() {
     const [reviews, setReviews] = useState([]);
@@ -21,14 +32,15 @@ export default function ReviewsPage() {
             <LoginHeader />
             <div className="reviewsWrapper">
                 <h1 id="header">Saved Reviews: </h1>
-                <ol id="reviews" >
+                <ul id="reviews" >
                     {reviews.map((review, idx) => (
                         <li key={idx}>
-                            <h2>{review.albumName}</h2>
-                            <p>{review.reviewText}</p>
+                            <Link to={`/album/${review.albumId}`} className='link'>
+                                <ReviewPreview albumName={review.albumName} albumId={review.albumId} reviewText={review.reviewText} />
+                            </Link>
                         </li>
                     ))}
-                </ol>
+                </ul>
             </div>
         </div>
     )
