@@ -4,10 +4,11 @@ import { LoginHeader } from "../LoginPage/LoginHeader";
 import './ReviewsPage.css'
 import { Link } from 'react-router-dom';
 
-function ReviewPreview({albumName, albumId, reviewText}) {
+function ReviewPreview({albumName, albumId, reviewText, coverArtUrl}) {
     return (
         <div className="reviewPreview">
             <h2>{albumName}</h2>
+            <img src={coverArtUrl}></img>
             <p>{albumId}</p>
             <p>{reviewText}</p>
         </div>
@@ -36,7 +37,7 @@ export default function ReviewsPage() {
                     {reviews.map((review, idx) => (
                         <li key={idx}>
                             <Link to={`/album/${review.albumId}`} className='link'>
-                                <ReviewPreview albumName={review.albumName} albumId={review.albumId} reviewText={review.reviewText} />
+                                <ReviewPreview albumName={review.albumName} albumId={review.albumId} reviewText={review.reviewText} coverArtUrl={review.coverArtUrl}/>
                             </Link>
                         </li>
                     ))}

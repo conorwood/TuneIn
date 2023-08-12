@@ -231,6 +231,7 @@ public class DemoApplication {
 		if (testReview.isPresent()) {
 			Review reviewUpdate = testReview.get();
 			reviewUpdate.setReviewText(review.getReviewText());
+			reviewUpdate.setFavoriteSongs(review.getFavoriteSongs());
 			reviewRepository.save(reviewUpdate);
 			//return ResponseEntity.ok("Review Updated!");
 		}

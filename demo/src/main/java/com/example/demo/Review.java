@@ -2,16 +2,22 @@ package com.example.demo;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ElementCollection
+    private List<String> favoriteSongs;
     private String reviewText;
     private String albumName;
 
     private String albumId;
+
+    private String coverArtUrl;
 
     public Review () {
 
@@ -26,6 +32,14 @@ public class Review {
         this.albumName = albumName;
         this.reviewText = reviewText;
         this.albumId = albumId;
+    }
+
+    public Review (String reviewText, String albumName, String albumId, String coverArtUrl, List<String> favoriteSongs) {
+        this.albumName = albumName;
+        this.reviewText = reviewText;
+        this.albumId = albumId;
+        this.coverArtUrl = coverArtUrl;
+        this.favoriteSongs = favoriteSongs;
     }
 
     public String getReviewText() {
@@ -50,5 +64,21 @@ public class Review {
 
     public void setAlbumId(String albumId) {
         this.albumId = albumId;
+    }
+
+    public String getCoverArtUrl() {
+        return coverArtUrl;
+    }
+
+    public void setCoverArtURL(String coverArtUrl) {
+        this.coverArtUrl = coverArtUrl;
+    }
+
+    public List<String> getFavoriteSongs() {
+        return favoriteSongs;
+    }
+
+    public void setFavoriteSongs(List<String> favoriteSongs) {
+        this.favoriteSongs = favoriteSongs;
     }
 }

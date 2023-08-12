@@ -26,6 +26,7 @@ function AlbumInfo() {
                 //window.alert("Review already added");
                 console.log("Review added");
                 setReview(response.data.reviewText)
+                setFavTracks(response.data.favoriteSongs)
             }
             else if (response.status === 404) {
                 console.log("No review added yet");
@@ -37,7 +38,6 @@ function AlbumInfo() {
     }, [params.name]);
 
     useEffect(() => {
-        //axios.get('http://localhost:8080/albums?name='+params.name)
         console.log(params.id);
         axios.get('http://localhost:8080/getAlbum?id='+params.id)
             .then((response) => {
@@ -65,7 +65,9 @@ function AlbumInfo() {
         const reviewData = { 
             reviewText: review,
             albumName: albumName,
-            albumId: albumId
+            albumId: albumId,
+            coverArtUrl: coverArtUrl,
+            favoriteSongs: favTracks
         };
 
         axios.post('http://localhost:8080/submitReview', reviewData)

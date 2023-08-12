@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 import axios from 'axios'
-import '../LoginPage/LoginPage.css'
+//import '../LoginPage/LoginPage.css'
 import './SearchBox.css'
 import { Link } from 'react-router-dom'
 import { Location } from 'react-router-dom'
@@ -9,8 +9,10 @@ function AlbumPreview({image, name, artist}) {
     return (
         <div className='albumPreviews'>
             <img alt='albumCoverPreview' src={image}></img>
-            <p>{name}</p>
-            <p id='artist'>{artist}</p>
+            <div className='previewText'>
+                <p className='previewName'>{name}</p>
+                <p className='previewArtist' id='artist'>{artist}</p>
+            </div>
         </div>
     )
 }

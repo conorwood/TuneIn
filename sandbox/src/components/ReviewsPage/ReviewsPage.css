@@ -1,6 +1,6 @@
 .reviewsPage {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     color: white;
     align-items: flex-start;
 }
@@ -20,12 +20,12 @@ a {
     display: flex;
     column-gap: 30px;
     background-color: #7D92AB;
-    width: 100%;
+    border-radius: 10px;
+    width: 75%;
     padding: 10px;
     position: relative;
     transition: 0.3s ease;
     text-decoration: none;
-    width: 100%;
 }
 
 .reviewPreview {
@@ -57,4 +57,9 @@ a {
 /* Apply the overlay effect on hover */
 .reviewsWrapper > ul li:hover .reviewPreview::before {
     opacity: 1;
+}
+
+.reviewPreview > img {
+    height: 250px;
+    width: 250px;
 }
