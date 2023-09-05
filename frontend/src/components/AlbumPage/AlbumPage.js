@@ -86,11 +86,10 @@ function AlbumInfo() {
     };
 
     const handleTrackClick = (track) => {
-        if (favTracks.includes(track)) {
-            return;
+        if (canEdit && !favTracks.includes(track)) {
+            setFavTracks([...favTracks, track]);
         }
 
-        setFavTracks([...favTracks, track]);
         console.log(favTracks);
     }
 
@@ -101,6 +100,7 @@ function AlbumInfo() {
 
     const handleNewReviewClick = () => {
         setHasReview(true);
+        setCanEdit(true);
     }
 
     const handleEditReview = () => {
@@ -120,7 +120,12 @@ function AlbumInfo() {
                     <h2 id="tracks">Tracks:</h2>
                     <ol id="track-list">
                         {tracks.map((track, idx) => (
-                            <li key={idx}>{track} <button onClick={() => handleTrackClick(track)}>+</button></li>
+                            <li key={idx}>
+                                {track} 
+                                {canEdit && (
+                                    <button id="addTrackButton" onClick={() => handleTrackClick(track)}>+</button>
+                                )}
+                            </li>
                         ))}
                     </ol>
                 </div>
@@ -152,15 +157,6 @@ function AlbumInfo() {
         </div>
     )
 }
-
-/*
-< PreviewReviewBox 
-    review={review}
-    onReviewChange={handleReviewChange}
-    onSaveReview={handleSaveReview}
-    favTracks={favTracks}
-/>
-*/
 
 
 function AlbumPage() {

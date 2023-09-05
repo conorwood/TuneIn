@@ -66,4 +66,18 @@ public class ReviewController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("deleteReview")
+    public ResponseEntity<String> deleteReview(@RequestParam("albumId") String albumId) {
+        Optional<Review> review = reviewRepository.findByAlbumId(albumId);
+
+        if (review.isPresent()) {
+            reviewRepository.delete(review.get());
+            return ResponseEntity.ok("Review Deleted");
+        }
+
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

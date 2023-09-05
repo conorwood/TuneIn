@@ -56,3 +56,11 @@ li {
     height: 100px;
     cursor: pointer;
 }
+
+
+#addTrackButton {
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+    cursor: pointer;
+}
