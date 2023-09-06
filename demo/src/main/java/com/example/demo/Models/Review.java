@@ -19,6 +19,8 @@ public class Review {
 
     private String coverArtUrl;
 
+    private int rating;
+
     public Review () {
 
     }
@@ -81,4 +83,10 @@ public class Review {
     public void setFavoriteSongs(List<String> favoriteSongs) {
         this.favoriteSongs = favoriteSongs;
     }
+
+    public int getRating() { return this.rating; }
+
+    public void setRating(int rating) { this.rating = rating; }
+
+
 }

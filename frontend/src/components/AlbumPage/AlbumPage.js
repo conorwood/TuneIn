@@ -21,6 +21,7 @@ function AlbumInfo() {
     const [reviewBoxExpanded, setReviewBoxExpanded] = useState(false);
     const [hasReview, setHasReview] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
+    const [rating, setRating] = useState(0);
 
 
     useEffect(() => {
@@ -31,6 +32,7 @@ function AlbumInfo() {
                 setReview(response.data.reviewText)
                 setFavTracks(response.data.favoriteSongs)
                 setHasReview(true);
+                setRating(response.data.rating)
             }
             else if (response.status === 404) {
                 console.log("No review added yet");
@@ -71,7 +73,8 @@ function AlbumInfo() {
             albumName: albumName,
             albumId: albumId,
             coverArtUrl: coverArtUrl,
-            favoriteSongs: favTracks
+            favoriteSongs: favTracks,
+            rating: rating
         };
 
         axios.post('http://localhost:8080/review/submitReview', reviewData)
@@ -107,6 +110,9 @@ function AlbumInfo() {
         setCanEdit(true);
     }
 
+    const handleDeleteFavoriteTrack = (trackToDelete) => {
+        setFavTracks((prevTracks) => prevTracks.filter((track) => track !== trackToDelete));
+    }
 
     return (
         <div className="albumWrapper" >
@@ -136,10 +142,10 @@ function AlbumInfo() {
                         <div className="preview">
                             < PreviewReviewBox 
                                 review={review}
-                                rating={3}
+                                rating={rating}
                                 favTracks={favTracks}
                             />
-                            <button onClick={handleEditReview}>Edit Review</button>
+                            <button className="editReviewButton" onClick={handleEditReview}>Edit Review</button>
                         </div>
                     ) : canEdit ? (
                         <ReviewBox
@@ -147,6 +153,9 @@ function AlbumInfo() {
                             onReviewChange={handleReviewChange}
                             onSaveReview={handleSaveReview}
                             favTracks={favTracks}
+                            handleDeleteFavoriteTrack={handleDeleteFavoriteTrack}
+                            rating={rating}
+                            setRating={setRating}
                         />
                     ) : (
                         <div className="newReviewButton">

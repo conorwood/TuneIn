@@ -64,3 +64,17 @@ li {
     border-color: transparent;
     cursor: pointer;
 }
+
+.editReviewButton { 
+    font-size: 25px;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #7D92AB;
+    color: white;
+    border-style: none;
+    margin: 5px;
+    width: 20%;
+    height: 50px;
+    cursor: pointer;
+}

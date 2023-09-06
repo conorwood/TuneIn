@@ -9,7 +9,7 @@ export function PreviewReviewBox({ review, rating, favTracks }) {
             </div>
             <div className="albumRating">
                 <h2>Rating: </h2>
-                <span className="rating">{rating}</span>
+                <span className="rating">{rating} / 5 &#9733;</span>
             </div>
             <div className="favTracks">
                 <h2>Favorite Tracks: </h2>

@@ -85,3 +85,10 @@
 .star {
     font-size: xx-large;
 }
+
+#deleteButton {
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+    cursor: pointer;
+}

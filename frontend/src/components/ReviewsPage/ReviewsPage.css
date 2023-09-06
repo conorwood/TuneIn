@@ -63,3 +63,12 @@ a {
     height: 250px;
     width: 250px;
 }
+
+.deleteReviewButton { 
+    height: 50px;
+    border-radius: 15px;
+    border-style: none;
+    margin-left: 200px;
+    background-color: white;
+    
+}

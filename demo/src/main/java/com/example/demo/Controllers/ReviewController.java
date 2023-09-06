@@ -24,6 +24,7 @@ public class ReviewController {
             Review reviewUpdate = testReview.get();
             reviewUpdate.setReviewText(review.getReviewText());
             reviewUpdate.setFavoriteSongs(review.getFavoriteSongs());
+            reviewUpdate.setRating(review.getRating());
             reviewRepository.save(reviewUpdate);
             //return ResponseEntity.ok("Review Updated!");
         }

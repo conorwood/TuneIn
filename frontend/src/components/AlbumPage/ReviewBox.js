@@ -3,7 +3,7 @@ import axios from "axios";
 import './ReviewBox.css'
 import stars from './stars.jpeg';
 
-function FavoriteTracks({ favTracks }) {
+function FavoriteTracks({ favTracks, onDeleteFavoriteTrack }) {
 
     return (
         <div className="favTracks">
@@ -13,7 +13,7 @@ function FavoriteTracks({ favTracks }) {
                     {favTracks.map((track, idx) => (
                         <li key={idx}>
                             {track}
-                            <button>-</button> 
+                            <button onClick={() => onDeleteFavoriteTrack(track)} id="deleteButton">-</button> 
                         </li>
                     ))}
                 </ul>
@@ -24,9 +24,14 @@ function FavoriteTracks({ favTracks }) {
     );
 }
 
-function AlbumRating() {
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
+function AlbumRating({rating, setRating}) {
+ /*    const [rating, setRating] = useState(0); */
+    const [hover, setHover] = useState(0); 
+
+    const handleStarClick = (index) => {
+        setRating(index);
+    }
+
     return (
         <div className="albumRating">
             <h1>Rating: </h1>
@@ -38,7 +43,7 @@ function AlbumRating() {
                         type="button"
                         key={index}
                         className={index <= (hover || rating) ? "on" : "off"}
-                        onClick={() => setRating(index)}
+                        onClick={() => handleStarClick(index)}
                         onMouseEnter={() => setHover(index)}
                         onMouseLeave={() => setHover(rating)}
                     >
@@ -51,7 +56,7 @@ function AlbumRating() {
     );
 }
 
-export function ReviewBox ({ review, onReviewChange, onSaveReview, favTracks}) {
+export function ReviewBox ({ review, onReviewChange, onSaveReview, favTracks, handleDeleteFavoriteTrack, rating, setRating}) {
     return (
         <div className="reviewBox">
             <div className="review">
@@ -59,8 +64,8 @@ export function ReviewBox ({ review, onReviewChange, onSaveReview, favTracks}) {
                 <textarea id="review-text" value={review} onChange={onReviewChange}></textarea>
                 <button id='save-button' onClick={onSaveReview}>Save Review </button>
             </div>
-            <AlbumRating />
-            <FavoriteTracks favTracks={favTracks} />
+            <AlbumRating rating={rating} setRating={setRating}/>
+            <FavoriteTracks favTracks={favTracks} onDeleteFavoriteTrack={handleDeleteFavoriteTrack}/>
         </div>
     )
 }
