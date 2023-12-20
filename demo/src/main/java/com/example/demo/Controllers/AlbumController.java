@@ -18,6 +18,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import io.supabase.client.SupabaseClient;
+import io.supabase.client.SupabaseClientBuilder;
+import io.supabase.client.http.SupabaseHttpClient;
+import io.supabase.client.http.SupabaseHttpResponse;
+
 @RestController
 @RequestMapping("/albums")
 @CrossOrigin
