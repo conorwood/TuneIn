@@ -4,6 +4,7 @@ import axios from 'axios'
 import './SearchBox.css'
 import { Link } from 'react-router-dom'
 import { Location } from 'react-router-dom'
+import { UserAuth } from '../../context/AuthContext'
 
 function AlbumPreview({image, name, artist}) {
     return (
@@ -35,9 +36,11 @@ function SearchResults({data}) {
 
 
 
-export function SearchBox() {
+export function SearchBox(props) {
     const [searchResults, setSearchResults] = useState([]);
     const [albumName, SetAlbumName] = useState('');
+    const user = props.user;
+    const access_token = user.accessToken;
 
     const handleInputChange = (event) => {
         SetAlbumName(event.target.value);
@@ -47,8 +50,12 @@ export function SearchBox() {
         if (!albumName) {
             return;
         }
-
-        axios.get('http://localhost:8080/albums/getAlbumSearchResults?name='+albumName)
+        console.log(`user: ${user.displayName}`);
+        axios.get('http://localhost:8080/albums/getAlbumSearchResults?name=' + albumName, {
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+        },
+    })
         .then((response) => {
             setSearchResults(response.data);
         })

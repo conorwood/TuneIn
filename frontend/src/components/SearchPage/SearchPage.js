@@ -8,7 +8,7 @@ function SearchPage(props) {
     return (
         <div className="searchPage">
             <LoginHeader logOut={props.logOut}/>
-            <SearchBox />
+            <SearchBox user={user}/>
             <h1> Welcome, {user.displayName} </h1>
             {/* {props.data ? (<h1>
                 {props.data.email}

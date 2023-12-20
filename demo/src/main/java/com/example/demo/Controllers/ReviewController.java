@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Models.Review;
 import com.example.demo.Repositories.ReviewRepository;
+import com.example.demo.Services.FirebaseAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,10 @@ import java.util.Optional;
 public class ReviewController {
 
     private final ReviewRepository reviewRepository;
+
+    @Autowired
+    private FirebaseAuthenticationService firebaseAuthenticationService;
+
 
     @PostMapping("submitReview")
     public ResponseEntity<String> submitReview(@RequestBody Review review) {
