@@ -2,11 +2,11 @@ import './LoginPage.css'
 import { LoginHeader } from './LoginHeader'
 import { LoginBox } from './LoginBox'
 
-function LoginPage() {
+function LoginPage(props) {
     return (
         <div className="loginPage">
             <LoginHeader />
-            <LoginBox />
+            <LoginBox handleSignIn={props.handleSignIn}/>
         </div>
     )
 }
