@@ -8,6 +8,8 @@ import axios from 'axios';
 import './AlbumPage.css'
 import { isEditable } from "@testing-library/user-event/dist/utils";
 import { UserAuth } from "../../context/AuthContext";
+import NavBar from "../NavBar/NavBar";
+
 
 
 function AlbumInfo(props) {
@@ -63,6 +65,10 @@ function AlbumInfo(props) {
     const handleReviewChange = (event) => {
         setReview(event.target.value);
     } 
+
+    const handleCancelReview = () => {
+        setCanEdit(false);
+    }
 
     const handleSaveReview = () => {
         if (!review) {
@@ -123,20 +129,25 @@ function AlbumInfo(props) {
 
     return (
         <div className="albumWrapper" >
-            <div className="albumInfo" >
-                <div className="album">
+            <div className="flex items-center" >
+                <div className="text-white w-1/2 p-3">
                     <h2 id="album-name">{albumName}</h2>
                     <h2 id="artist-name">{artistName}</h2>
                     <img id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
                 </div>
-                <div className="tracks-info">
-                    <h2 id="tracks">Tracks:</h2>
+                <div className="text-white justify-end flex-grow ml-5">
+                    <h2 className="text-4xl font-bold text-left m-5">Tracks:</h2>
                     <ol id="track-list">
                         {tracks.map((track, idx) => (
-                            <li key={idx}>
+                            <li key={idx} className="flex items-center justify-start">
                                 {track} 
                                 {canEdit && (
-                                    <button id="addTrackButton" onClick={() => handleTrackClick(track)}>+</button>
+                                    <button className="ml-4 bg-transparent text-white cursor-pointer transition ease-in-out duration-300 transform hover:text-blue-700 hover:scale-150" onClick={() => handleTrackClick(track)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" dataSlot="icon" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+
+                                    </button>
                                 )}
                             </li>
                         ))}
@@ -152,7 +163,10 @@ function AlbumInfo(props) {
                                 rating={rating}
                                 favTracks={favTracks}
                             />
-                            <button className="editReviewButton" onClick={handleEditReview}>Edit Review</button>
+                            <button className="text-2xl font-bold p-4 rounded-2xl bg-gray-800 text-white m-1 w-1/5 h-12 cursor-pointer" 
+                                onClick={handleEditReview}>
+                                Edit Review
+                            </button>
                         </div>
                     ) : canEdit ? (
                         <ReviewBox
@@ -163,10 +177,12 @@ function AlbumInfo(props) {
                             handleDeleteFavoriteTrack={handleDeleteFavoriteTrack}
                             rating={rating}
                             setRating={setRating}
+                            onCancelReview={handleCancelReview}
                         />
                     ) : (
-                        <div className="newReviewButton">
-                            <button onClick={handleNewReviewClick}>+ Add Review</button>
+                        <div>
+                            <button className="text-4xl font-bold p-4 rounded-2xl bg-gray-500 text-white m-5 w-5/12 h-24 cursor-pointer transition duration-300 ease-in-out transform hover:bg-blue-600 hover:scale-105"
+                             onClick={handleNewReviewClick}>+ Add Review</button>
                         </div>
                     )}
             </div>
@@ -178,8 +194,8 @@ function AlbumInfo(props) {
 function AlbumPage() {
     const { user } = UserAuth();
     return (
-        <div className="albumPage">
-            <LoginHeader />
+        <div className="bg-zinc-800">
+            <NavBar />
             <AlbumInfo user={user}/>
         </div>
     )
