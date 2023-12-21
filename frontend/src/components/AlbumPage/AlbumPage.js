@@ -7,9 +7,10 @@ import axios from 'axios';
 //import album_cover from './speak_now.png'
 import './AlbumPage.css'
 import { isEditable } from "@testing-library/user-event/dist/utils";
+import { UserAuth } from "../../context/AuthContext";
 
 
-function AlbumInfo() {
+function AlbumInfo(props) {
     const params = useParams();
     const [tracks, setTracks] = useState([]);
     const [albumName, setAlbumName] = useState('');
@@ -68,6 +69,8 @@ function AlbumInfo() {
             return;
         }
 
+        console.log(props.user.accessToken);
+
         const reviewData = { 
             reviewText: review,
             albumName: albumName,
@@ -77,7 +80,11 @@ function AlbumInfo() {
             rating: rating
         };
 
-        axios.post('http://localhost:8080/review/submitReview', reviewData)
+        const headers = {
+            'Authorization': `Bearer ${props.user.accessToken}`,
+        };
+
+        axios.post('http://localhost:8080/review/submitReview', reviewData, { headers: headers })
             .then((response) => {
                 setHasReview(true);
                 setCanEdit(false);
@@ -169,10 +176,11 @@ function AlbumInfo() {
 
 
 function AlbumPage() {
+    const { user } = UserAuth();
     return (
         <div className="albumPage">
             <LoginHeader />
-            <AlbumInfo />
+            <AlbumInfo user={user}/>
         </div>
     )
 }
