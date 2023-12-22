@@ -21,6 +21,28 @@ public class Review {
 
     private int rating;
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public Review(Long id, List<String> favoriteSongs, String reviewText, String albumName, String albumId, String coverArtUrl, int rating, String userEmail) {
+        this.id = id;
+        this.favoriteSongs = favoriteSongs;
+        this.reviewText = reviewText;
+        this.albumName = albumName;
+        this.albumId = albumId;
+        this.coverArtUrl = coverArtUrl;
+        this.rating = rating;
+        this.userEmail = userEmail;
+    }
+
+    @Column(name = "user_email")
+    private String userEmail;
+
     public Review () {
 
     }

@@ -8,6 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
+
+    Optional<Review> findByAlbumNameAndUserEmail(String albumName, String userEmail);
+
     boolean existsByAlbumName(String albumName);
 
     Optional<Review> findByAlbumName(String albumName);

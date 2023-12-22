@@ -7,9 +7,12 @@ import axios from 'axios';
 //import album_cover from './speak_now.png'
 import './AlbumPage.css'
 import { isEditable } from "@testing-library/user-event/dist/utils";
+import { UserAuth } from "../../context/AuthContext";
+import NavBar from "../NavBar/NavBar";
 
 
-function AlbumInfo() {
+
+function AlbumInfo(props) {
     const params = useParams();
     const [tracks, setTracks] = useState([]);
     const [albumName, setAlbumName] = useState('');
@@ -63,10 +66,16 @@ function AlbumInfo() {
         setReview(event.target.value);
     } 
 
+    const handleCancelReview = () => {
+        setCanEdit(false);
+    }
+
     const handleSaveReview = () => {
         if (!review) {
             return;
         }
+
+        console.log(props.user.accessToken);
 
         const reviewData = { 
             reviewText: review,
@@ -77,7 +86,11 @@ function AlbumInfo() {
             rating: rating
         };
 
-        axios.post('http://localhost:8080/review/submitReview', reviewData)
+        const headers = {
+            'Authorization': `Bearer ${props.user.accessToken}`,
+        };
+
+        axios.post('http://localhost:8080/review/submitReview', reviewData, { headers: headers })
             .then((response) => {
                 setHasReview(true);
                 setCanEdit(false);
@@ -116,20 +129,25 @@ function AlbumInfo() {
 
     return (
         <div className="albumWrapper" >
-            <div className="albumInfo" >
-                <div className="album">
-                    <h2 id="album-name">{albumName}</h2>
-                    <h2 id="artist-name">{artistName}</h2>
-                    <img id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
+            <div className="flex items-center border-b-2 border-neutral-500" >
+                <div className="text-white w-1/2 p-3 border-neutral-500">
+                    <h2 className="text-5xl" id="album-name">{albumName}</h2>
+                    <h2 className="text-2xl text-neutral-300 m-2" id="artist-name">{artistName}</h2>
+                    <img className="mx-auto rounded-lg" id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
                 </div>
-                <div className="tracks-info">
-                    <h2 id="tracks">Tracks:</h2>
-                    <ol id="track-list">
+                <div id="this" className="text-white flex items-center flex-col justify-center w-2/5 p-5 mx-auto bg-black rounded-lg">
+                    <h2 className="text-4xl font-bold m-5 text-start">Tracks:</h2>
+                    <ol className="grid grid-cols-2 list-decimal list-inside">
                         {tracks.map((track, idx) => (
-                            <li key={idx}>
+                            <li key={idx} className="bg-neutral-900 flex items-center justify-start text-left text-xl transition ease-in-out duration-300 transform hover:bg-neutral-700 p-1 rounded-lg border-neutral-500 border-2">
                                 {track} 
                                 {canEdit && (
-                                    <button id="addTrackButton" onClick={() => handleTrackClick(track)}>+</button>
+                                    <button className="ml-4 bg-transparent text-white cursor-pointer transition ease-in-out duration-300 transform hover:text-blue-700 hover:scale-150" onClick={() => handleTrackClick(track)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" dataSlot="icon" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+
+                                    </button>
                                 )}
                             </li>
                         ))}
@@ -144,8 +162,8 @@ function AlbumInfo() {
                                 review={review}
                                 rating={rating}
                                 favTracks={favTracks}
+                                onEditReview={handleEditReview}
                             />
-                            <button className="editReviewButton" onClick={handleEditReview}>Edit Review</button>
                         </div>
                     ) : canEdit ? (
                         <ReviewBox
@@ -156,10 +174,12 @@ function AlbumInfo() {
                             handleDeleteFavoriteTrack={handleDeleteFavoriteTrack}
                             rating={rating}
                             setRating={setRating}
+                            onCancelReview={handleCancelReview}
                         />
                     ) : (
-                        <div className="newReviewButton">
-                            <button onClick={handleNewReviewClick}>+ Add Review</button>
+                        <div>
+                            <button className="text-4xl font-bold p-4 rounded-2xl bg-gray-500 text-white m-5 w-5/12 h-24 cursor-pointer transition duration-300 ease-in-out transform hover:bg-blue-600 hover:scale-105"
+                             onClick={handleNewReviewClick}>+ Add Review</button>
                         </div>
                     )}
             </div>
@@ -169,10 +189,11 @@ function AlbumInfo() {
 
 
 function AlbumPage() {
+    const { user } = UserAuth();
     return (
-        <div className="albumPage">
-            <LoginHeader />
-            <AlbumInfo />
+        <div className="bg-zinc-800">
+            <NavBar />
+            <AlbumInfo user={user}/>
         </div>
     )
 }

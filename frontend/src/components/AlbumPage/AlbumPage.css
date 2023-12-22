@@ -1,4 +1,4 @@
-.albumPage {
+/* .albumPage {
     background-color: #282828;
     height: 100%;
 }
@@ -28,11 +28,7 @@
     text-decoration: underline;
 }
 
-li {
-    font-size: 18px;
-    margin-bottom: 8px;
-    text-align: left;
-}
+
 
 #album-name {
     font-size: 35px;
@@ -77,4 +73,4 @@ li {
     width: 20%;
     height: 50px;
     cursor: pointer;
-}
+} */

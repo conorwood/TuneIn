@@ -1,6 +1,9 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Models.AlbumInfo;
+import com.example.demo.Services.FirebaseAuthenticationService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,10 @@ public class AlbumController {
             .build();
 
     private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
+
+    @Autowired
+    private FirebaseAuthenticationService firebaseAuthenticationService;
+
 
     @Autowired
     public AlbumController() {
@@ -119,8 +126,26 @@ public class AlbumController {
     }
 
     @GetMapping("getAlbumSearchResults")
-    public List<AlbumInfo> getAlbumSearchResults(@RequestParam("name") String name) {
+    public List<AlbumInfo> getAlbumSearchResults(@RequestParam("name") String name, @RequestHeader("Authorization") String token) {
         List<AlbumInfo> response = new ArrayList<>();
+
+        String firebaseIdToken = token.replace("Bearer ", "");
+        FirebaseToken decodedToken = null;
+        try {
+            decodedToken = firebaseAuthenticationService.verifyFirebaseToken(firebaseIdToken);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        // Now you can use the 'firebaseIdToken' for authentication or other purposes.
+        // Example: Verify the token using Firebase Authentication SDK
+
+        // Access user information from the decoded token
+        String uid = decodedToken.getUid();
+        String email = decodedToken.getEmail();
+//        System.out.println(decodedToken);
+//        System.out.println(uid);
+//        System.out.println(email);
 
         try {
             clientCredentials_Sync();

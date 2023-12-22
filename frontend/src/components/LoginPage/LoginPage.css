@@ -64,3 +64,20 @@ color: #E76F51;
 .loginBox > img {
     margin: 20px;
 }
+
+@keyframes bounceRight {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateX(0);
+    }
+    40% {
+      transform: translateX(20px); /* Adjust the distance of the bounce */
+    }
+    60% {
+      transform: translateX(10px); /* Adjust the distance of the bounce */
+    }
+  }
+  
+  .animate-bounce-right {
+    animation: bounceRight 2s infinite;
+  }
+  
