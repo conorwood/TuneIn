@@ -7,7 +7,7 @@ function FavoriteTracks({ favTracks, onDeleteFavoriteTrack }) {
 
     return (
         <div className="w-1/3 text-2xl">
-            <h2>Favorite Tracks:</h2>
+            <h2 className='font-semibold'>Favorite Tracks:</h2>
             {favTracks.length > 0 ? (
                 <ul>
                     {favTracks.map((track, idx) => (
@@ -62,14 +62,16 @@ function AlbumRating({rating, setRating}) {
 
 export function ReviewBox ({ review, onReviewChange, onSaveReview, favTracks, handleDeleteFavoriteTrack, rating, setRating, onCancelReview}) {
     return (
-        <div className="flex w-5/6 bg-gray-400 justify-between rounded-xl p-3 mx-auto mb-5 mt-5">
-            <button onClick={onCancelReview} className="self-start transition ease-in-out duration-300 transform hover:text-red-600 hover:scale-110">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" dataSlot="icon" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-            </button>
-            <div className="flex flex-col w-2/5 ml-3">
-                <h2 className="self-start text-2xl mb-1">Review: </h2>
+        <div className="flex w-5/6 bg-gray-400 justify-between rounded-xl p-3 mx-auto mb-5 mt-5 divide-x">
+            <div className="flex flex-col w-2/5 mx-3">
+                <div className='flex'> 
+                    <button onClick={onCancelReview} className="self-start transition ease-in-out duration-300 transform hover:text-red-600 hover:scale-110 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" dataSlot="icon" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </button>
+                    <h2 className="self-start text-2xl mb-1">Review: </h2>
+                </div>
                 <textarea className="w-full h-36 self-start text-xl resize-none rounded-sm bg-slate-50" value={review} onChange={onReviewChange}></textarea>
                 <button className="bg-white rounded-2xl w-1/3 self-center m-3 text-xl p-1 cursor-pointer transition duration-300 ease-in-out transform hover:bg-blue-700" onClick={onSaveReview}>Save Review </button>
             </div>

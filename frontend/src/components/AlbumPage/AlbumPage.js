@@ -129,13 +129,13 @@ function AlbumInfo(props) {
 
     return (
         <div className="albumWrapper" >
-            <div className="flex items-center border-b-2 border-neutral-500" >
+            <div className="flex items-start my-3 border-b-2 border-neutral-500" >
                 <div className="text-white w-1/2 p-3 border-neutral-500">
                     <h2 className="text-5xl" id="album-name">{albumName}</h2>
                     <h2 className="text-2xl text-neutral-300 m-2" id="artist-name">{artistName}</h2>
-                    <img className="mx-auto rounded-lg" id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
+                    <img className="mx-auto rounded-lg max-h-96" id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
                 </div>
-                <div id="this" className="text-white flex items-center flex-col justify-center w-2/5 p-5 mx-auto bg-black rounded-lg">
+                <div id="this" className="text-white flex items-center flex-col justify-center w-2/5 p-5 mx-auto bg-black rounded-lg my-5">
                     <h2 className="text-4xl font-bold m-5 text-start">Tracks:</h2>
                     <ol className="grid grid-cols-2 list-decimal list-inside">
                         {tracks.map((track, idx) => (
