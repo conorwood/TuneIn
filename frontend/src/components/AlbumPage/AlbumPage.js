@@ -129,17 +129,17 @@ function AlbumInfo(props) {
 
     return (
         <div className="albumWrapper" >
-            <div className="flex items-center" >
-                <div className="text-white w-1/2 p-3">
-                    <h2 id="album-name">{albumName}</h2>
-                    <h2 id="artist-name">{artistName}</h2>
-                    <img id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
+            <div className="flex items-center border-b-2 border-neutral-500" >
+                <div className="text-white w-1/2 p-3 border-neutral-500">
+                    <h2 className="text-5xl" id="album-name">{albumName}</h2>
+                    <h2 className="text-2xl text-neutral-300 m-2" id="artist-name">{artistName}</h2>
+                    <img className="mx-auto rounded-lg" id="cover-art" alt='Cover Art' src={coverArtUrl} ></img>
                 </div>
-                <div className="text-white justify-end flex-grow ml-5">
-                    <h2 className="text-4xl font-bold text-left m-5">Tracks:</h2>
-                    <ol id="track-list">
+                <div id="this" className="text-white flex items-center flex-col justify-center w-2/5 p-5 mx-auto bg-black rounded-lg">
+                    <h2 className="text-4xl font-bold m-5 text-start">Tracks:</h2>
+                    <ol className="grid grid-cols-2 list-decimal list-inside">
                         {tracks.map((track, idx) => (
-                            <li key={idx} className="flex items-center justify-start">
+                            <li key={idx} className="bg-neutral-900 flex items-center justify-start text-left text-xl transition ease-in-out duration-300 transform hover:bg-neutral-700 p-1 rounded-lg border-neutral-500 border-2">
                                 {track} 
                                 {canEdit && (
                                     <button className="ml-4 bg-transparent text-white cursor-pointer transition ease-in-out duration-300 transform hover:text-blue-700 hover:scale-150" onClick={() => handleTrackClick(track)}>
@@ -162,11 +162,8 @@ function AlbumInfo(props) {
                                 review={review}
                                 rating={rating}
                                 favTracks={favTracks}
+                                onEditReview={handleEditReview}
                             />
-                            <button className="text-2xl font-bold p-4 rounded-2xl bg-gray-800 text-white m-1 w-1/5 h-12 cursor-pointer" 
-                                onClick={handleEditReview}>
-                                Edit Review
-                            </button>
                         </div>
                     ) : canEdit ? (
                         <ReviewBox

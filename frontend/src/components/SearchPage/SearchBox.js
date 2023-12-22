@@ -11,8 +11,8 @@ function AlbumPreview({image, name, artist}) {
         <div className='flex w-full mb-10 bg-gray-800 p-4 rounded-3xl transition duration-300 ease-in-out transform hover:bg-blue-700 hover:scale-105'>
             <img className='max-w-96 h-auto mr-5 border-white border-2 rounded-2xl' alt='albumCoverPreview' src={image}></img>
             <div className='flex flex-col items-center justify-center p-7 flex-1 text-center'>
-                <p className='text-3xl text-white'>{name}</p>
-                <p className='text-2xl text-white' id='artist'>{artist}</p>
+                <p className='text-8xl text-white mb-5'>{name}</p>
+                <p className='text-3xl text-neutral-400' id='artist'>{artist}</p>
             </div>
         </div>
     )
