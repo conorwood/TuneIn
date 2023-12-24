@@ -5,6 +5,7 @@ import com.example.demo.Repositories.ReviewRepository;
 import com.example.demo.Services.FirebaseAuthenticationService;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,6 +86,23 @@ public class ReviewController {
         return reviewRepository.findAll();
     }
 
+    @GetMapping("getUserReviews")
+    public List<Review> getUserReviews(@RequestHeader("Authorization") String token) {
+        try {
+            String firebaseIdToken = token.replace("Bearer ", "");
+            FirebaseToken decodedToken = null;
+
+            decodedToken = firebaseAuthenticationService.verifyFirebaseToken(firebaseIdToken);
+            String userEmail = decodedToken.getEmail();
+
+            return reviewRepository.findByUserEmail(userEmail);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     @GetMapping("findReview")
     public Boolean findReview(@RequestParam("albumName") String albumName) {
         boolean exists = reviewRepository.existsByAlbumName(albumName);
@@ -103,6 +121,35 @@ public class ReviewController {
 
         else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @GetMapping("findReviewByUser")
+    public ResponseEntity<?> findReviewByUser(@RequestParam String albumId, @RequestHeader("Authorization") String token) {
+        try {
+            String firebaseIdToken = token.replace("Bearer ", "");
+            FirebaseToken decodedToken = null;
+
+            decodedToken = firebaseAuthenticationService.verifyFirebaseToken(firebaseIdToken);
+            String userEmail = decodedToken.getEmail();
+
+            if (userEmail.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            Optional<Review> review = reviewRepository.findByAlbumIdAndUserEmail(albumId, userEmail);
+//            if (!review.isPresent()) {
+//                return ResponseEntity.notFound().build();
+//            }
+
+            System.out.println(review);
+            return ResponseEntity.ok(review.get());
+        }
+
+        catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
         }
     }
 

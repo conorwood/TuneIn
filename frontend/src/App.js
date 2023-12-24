@@ -9,6 +9,7 @@ import ReviewsPage from './components/ReviewsPage/ReviewsPage';
 import {useState, useEffect} from 'react';
 import { AuthContextProvider } from './context/AuthContext';
 import { UserAuth } from './context/AuthContext';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 
 
@@ -113,6 +114,7 @@ function App() {
             <Route path="/album" element={<AlbumPage />} />
             <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/reviews" element={<ReviewsPage />} />
+            <Route path='/profile' element={<ProfilePage />} />
           </>
         ) : (
           // User is not logged in, show login screen

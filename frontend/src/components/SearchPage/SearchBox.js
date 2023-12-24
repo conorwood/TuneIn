@@ -31,7 +31,7 @@ function AlbumListPreview({image, name, artist}) {
 }
 
 function GridListView(props) {
-    const [grid, setGrid] = useState(false);
+    const [grid, setGrid] = useState(true);
     const handleGridClick = () => {
         props.setGridView(true);
         setGrid(true)

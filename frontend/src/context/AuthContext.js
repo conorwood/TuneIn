@@ -7,11 +7,45 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '../Firebase'
+import axios from "axios"
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+
+  const saveUser = (user) => {
+    if (user && user.accessToken) {
+      const headers = {
+        'Authorization': `Bearer ${user.accessToken}`,
+      };
+
+      axios.post(`http://localhost:8080/user/upsertUser`, {}, { headers: headers })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error(`Error upserting user: ${error}`);
+        })
+    }
+  }
+
+
+  /*
+   const headers = {
+            'Authorization': `Bearer ${props.user.accessToken}`,
+        };
+
+        axios.post('http://localhost:8080/review/submitReview', reviewData, { headers: headers })
+            .then((response) => {
+                setHasReview(true);
+                setCanEdit(false);
+                console.log('Review saved!');
+            })
+            .catch((error) => {
+                console.error('Error saving: ', error);
+            })
+  */
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
@@ -26,6 +60,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      saveUser(currentUser);
       console.log('User', currentUser)
     });
     return () => {

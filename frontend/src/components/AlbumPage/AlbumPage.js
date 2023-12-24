@@ -25,26 +25,35 @@ function AlbumInfo(props) {
     const [hasReview, setHasReview] = useState(false);
     const [canEdit, setCanEdit] = useState(false);
     const [rating, setRating] = useState(0);
+    const { user } = UserAuth();
 
 
     useEffect(() => {
-        axios.get('http://localhost:8080/review/findReview1?albumId='+params.id)
-        .then((response) => {
-            if (response.status === 200) {
-                console.log("Review added");
-                setReview(response.data.reviewText)
-                setFavTracks(response.data.favoriteSongs)
-                setHasReview(true);
-                setRating(response.data.rating)
-            }
-            else if (response.status === 404) {
-                console.log("No review added yet");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    }, [params.name]);
+        if (user.accessToken) {
+            const headers = {
+                'Authorization': `Bearer ${user.accessToken}`,
+            };
+
+
+            //axios.get('http://localhost:8080/review/findReview1?albumId='+params.id)
+            axios.get('http://localhost:8080/review/findReviewByUser?albumId='+params.id, {headers: headers})
+                .then((response) => {
+                        if (response.status === 200) {
+                            console.log("Review added");
+                            setReview(response.data.reviewText)
+                            setFavTracks(response.data.favoriteSongs)
+                            setHasReview(true);
+                            setRating(response.data.rating)
+                        }
+                        else if (response.status === 404) {
+                            console.log("No review added yet");
+                        }
+                    })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [params.name, user]);
 
     useEffect(() => {
         console.log(params.id);
